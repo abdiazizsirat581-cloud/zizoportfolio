@@ -1,0 +1,760 @@
+/* ==========================================================================
+   CYBERPUNK THEME VARIABLES & CORE CONFIG
+   ========================================================================== */
+:root {
+    --bg-color: #03030c;
+    --card-bg: rgba(6, 6, 20, 0.45);
+    --card-border: rgba(0, 240, 255, 0.15);
+    
+    /* Neon Palettes */
+    --cyan: #00f0ff;
+    --electric-blue: #0044ff;
+    --purple: #bd00ff;
+    --text-main: #e2e8f0;
+    --text-muted: #707e94;
+    
+    /* Neon Glow Filters */
+    --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.2);
+    --glow-purple: 0 0 10px rgba(189, 0, 255, 0.5), 0 0 20px rgba(189, 0, 255, 0.2);
+    
+    --transition-speed: 0.4s;
+}
+
+/* Developer / Matrix Mode (Konami Code Target Variables) */
+body.matrix-mode {
+    --bg-color: #010802;
+    --card-bg: rgba(2, 12, 4, 0.6);
+    --card-border: rgba(0, 255, 70, 0.3);
+    --cyan: #00ff46;
+    --electric-blue: #00aa20;
+    --purple: #00330a;
+    --text-main: #33ff66;
+    --text-muted: #1a883b;
+    --glow-cyan: 0 0 12px rgba(0, 255, 70, 0.7);
+    --glow-purple: 0 0 12px rgba(0, 100, 20, 0.5);
+}
+
+/* ==========================================================================
+   GLOBAL STRUCTURE & UTILITIES
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    cursor: none; /* Hide native cursor for responsive custom cursor implementation */
+}
+
+h1, h2, h3, .logo, .cyber-btn, .card-header {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Scroll Progress indicator bar at top */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    box-shadow: var(--glow-cyan);
+    z-index: 10000;
+}
+
+/* ==========================================================================
+   CUSTOM GLOWING CURSOR ELEMENTS
+   ========================================================================== */
+.custom-cursor {
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--cyan);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: var(--glow-cyan);
+    transition: transform 0.08s linear, width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--purple);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: var(--glow-purple);
+}
+
+body:active .custom-cursor {
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: rgba(0, 240, 255, 0.1);
+}
+
+/* ==========================================================================
+   BACKGROUND VISUAL EFFECTS (CANVAS & SCI-FI FLOOR)
+   ========================================================================== */
+#cyber-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    opacity: 0.22;
+}
+
+.grid-floor {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 40vh;
+    background-image: 
+        linear-gradient(rgba(3,3,12,0) 0%, var(--bg-color) 85%),
+        linear-gradient(90deg, var(--card-border) 1px, transparent 1px),
+        linear-gradient(0deg, var(--card-border) 1px, transparent 1px);
+    background-size: 100% 100%, 45px 45px, 45px 45px;
+    transform: perspective(500px) rotateX(65deg);
+    transform-origin: bottom;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+/* ==========================================================================
+   PRELOADER SYSTEM ANIMATION
+   ========================================================================== */
+#loader-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #020206;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.loader-content {
+    text-align: center;
+    width: 80%;
+    max-width: 450px;
+}
+
+.loader-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-main);
+    letter-spacing: 8px;
+    position: relative;
+    animation: textGlitch 3s infinite linear alternate-reverse;
+}
+
+.loader-bar-container {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 20px 0;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--electric-blue), var(--cyan));
+    box-shadow: var(--glow-cyan);
+    animation: completeLoad 2s cubic-bezier(0.1, 0.85, 0.35, 1) forwards;
+}
+
+.loader-status {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+}
+
+/* ==========================================================================
+   NAVIGATION DESIGNS
+   ========================================================================== */
+.cyber-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 20px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(3, 3, 12, 0.7);
+    border-bottom: 1px solid var(--card-border);
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-shadow: var(--glow-cyan);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-left: 25px;
+    transition: color var(--transition-speed), text-shadow var(--transition-speed);
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--cyan);
+    text-shadow: var(--glow-cyan);
+}
+
+.system-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff66;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff66;
+    animation: statusPulse 1.5s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   SECTION STRUCTURES
+   ========================================================================== */
+.section-container {
+    min-height: 100vh;
+    padding: 120px 8% 60px 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.neon-text-cyan { color: var(--cyan); text-shadow: var(--glow-cyan); }
+.neon-text-purple { color: var(--purple); text-shadow: var(--glow-purple); }
+
+/* Scroll reveal engine classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   HERO LAYER DESIGN
+   ========================================================================== */
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.cyber-tag {
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: var(--glow-cyan);
+}
+
+.hero-name {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #fff 30%, var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.typing-container {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--purple);
+    text-shadow: var(--glow-purple);
+    margin-bottom: 25px;
+    height: 40px;
+}
+
+.cursor-blink {
+    animation: blink 0.7s infinite steps(2);
+}
+
+.hero-bio {
+    max-width: 550px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+/* Cyber Dashboard Buttons */
+.hero-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.cyber-btn {
+    position: relative;
+    padding: 14px 28px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    clip-path: polygon(12px 0px, 100% 0px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0px 100%, 0px 12px);
+}
+
+.btn-primary {
+    background-color: var(--cyan);
+    color: #000;
+}
+
+.btn-primary:hover {
+    box-shadow: var(--glow-cyan);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--cyan);
+    border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 240, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Profile Visual Layout */
+.hero-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-glow-ring {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(45deg, var(--cyan), transparent, var(--purple));
+    box-shadow: var(--glow-cyan);
+    animation: rotateRing 12s linear infinite;
+}
+
+.profile-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #060614;
+    border: 2px solid #03030c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Counter-rotates so your photo stays perfectly static while the ring spins */
+    animation: rotateRing 12s linear infinite reverse;
+}
+
+/* Fixes the zoom/framing issue for azizo.jpeg inside the placeholder circle */
+.profile-placeholder img {
+    width: 150%;
+    height: 150%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.avatar-fallback {
+    font-size: 5rem;
+    color: var(--card-border);
+    animation: pulseFallback 4s infinite ease-in-out;
+}
+
+/* Floating Tech Icon Nodes */
+.floating-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--cyan);
+    box-shadow: inset 0 0 8px rgba(0,240,255,0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    pointer-events: none;
+}
+
+/* Floating Positions surrounding avatar */
+.fi-html { top: -10px; left: 15%; color: #e34f26; }
+.fi-css { top: 60px; right: 5%; color: #1572b6; }
+.fi-js { bottom: 10px; left: 10%; color: #f7df1e; }
+.fi-mysql { bottom: 80px; right: 8%; color: #00758f; }
+.fi-python { top: 50%; left: -15%; color: #3776ab; }
+
+/* ==========================================================================
+   GLASSMORPHISM & CYBER CARD DESIGN RULES
+   ========================================================================== */
+.cyber-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.cyber-card:hover {
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 240, 255, 0.05);
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.terminal-dot.red { background-color: #ff5f56; }
+.terminal-dot.yellow { background-color: #ffbd2e; }
+.terminal-dot.green { background-color: #27c93f; }
+
+.card-title-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* ==========================================================================
+   ABOUT ME & SKILL METRICS
+   ========================================================================== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.bio-text {
+    color: var(--text-main);
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+}
+
+/* Live Counter Units */
+.counters-wrapper {
+    display: flex;
+    gap: 40px;
+}
+
+.counter-box {
+    text-align: left;
+}
+
+.counter-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--cyan);
+    text-shadow: var(--glow-cyan);
+    line-height: 1;
+}
+
+.counter-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* Capability Matrix Progress Elements */
+.skill-item {
+    margin-bottom: 22px;
+}
+
+.skill-item:last-child {
+    margin-bottom: 0;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.skill-val {
+    color: var(--cyan);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Populated dynamically on intercept via JavaScript */
+    background: linear-gradient(90deg, var(--electric-blue), var(--cyan));
+    box-shadow: var(--glow-cyan);
+    border-radius: 3px;
+    transition: width 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+}
+
+/* ==========================================================================
+   CONTACT MATRIX PORTAL
+   ========================================================================== */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--card-border);
+    padding: 14px;
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.15), inset 0 0 5px rgba(0,240,255,0.05);
+}
+
+.form-submit {
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Social Grid Links */
+.social-channels {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.social-icon-btn {
+    height: 75px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon-btn:hover {
+    transform: translateY(-4px);
+    color: #fff;
+}
+
+/* Hover Accent Colors per Grid Block */
+.social-icon-btn.github:hover { border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+.social-icon-btn.facebook:hover { border-color: #1877f2; box-shadow: 0 0 15px rgba(24,119,242,0.3); color: #1877f2; }
+.social-icon-btn.instagram:hover { border-color: #c13584; box-shadow: 0 0 15px rgba(193,53,132,0.3); color: #c13584; }
+.social-icon-btn.whatsapp:hover { border-color: #25d366; box-shadow: 0 0 15px rgba(37,211,102,0.3); color: #25d366; }
+.social-icon-btn.email-link:hover { border-color: var(--cyan); box-shadow: var(--glow-cyan); color: var(--cyan); }
+
+/* Double size for email block to preserve structural aesthetics */
+.social-icon-btn.email-link {
+    grid-column: span 2;
+}
+
+/* ==========================================================================
+   FOOTER LAYER & UI FLOATS
+   ========================================================================== */
+.cyber-footer {
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* Back to Top button layout specifications */
+#back-to-top {
+    position: fixed;
+    bottom: -60px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--cyan);
+    box-shadow: var(--glow-cyan);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    z-index: 99;
+    transition: bottom 0.4s ease, transform 0.2s;
+}
+
+#back-to-top.visible {
+    bottom: 30px;
+}
+
+#back-to-top:hover {
+    background-color: var(--cyan);
+    color: #000;
+}
+
+/* ==========================================================================
+   CSS KEYFRAMES KEY ENGINES
+   ========================================================================== */
+@keyframes completeLoad {
+    to { width: 100%; }
+}
+
+@keyframes textGlitch {
+    0%, 100% { transform: skew(0deg); text-shadow: 2px 1px var(--cyan), -2px -1px var(--purple); }
+    20% { transform: skew(-3deg); text-shadow: 3px -1px var(--cyan), -1px 2px var(--purple); }
+    40% { transform: skew(4deg); text-shadow: -2px 2px var(--cyan), 2px -2px var(--purple); }
+    60% { transform: skew(-1deg); text-shadow: 1px -2px var(--cyan), -3px 1px var(--purple); }
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+@keyframes blink {
+    from, to { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes rotateRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseFallback {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.05); opacity: 0.5; }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 60px;
+    }
+    .hero-bio { max-width: 100%; }
+    .hero-actions { justify-content: center; }
+    .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+    .floating-icon { display: none; } /* De-clutter UI on tablet displays */
+}
+
+@media (max-width: 600px) {
+    body { cursor: default; } /* Revert standard pointer device mechanics on touch screens */
+    .custom-cursor, .custom-cursor-dot { display: none; }
+    .hero-name { font-size: 2.3rem; }
+    .section-title { font-size: 1.6rem; }
+    .nav-links { display: none; } /* Space reduction optimization */
+    .counters-wrapper { justify-content: space-around; }
+}

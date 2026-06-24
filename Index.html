@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdiaziz Adan Sirat | Cyber Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="scroll-progress"></div>
+
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <canvas id="cyber-canvas"></canvas>
+    <div class="grid-floor"></div>
+
+    <div id="loader-screen">
+        <div class="loader-content">
+            <h1 class="loader-title" data-text="ABDIAZIZ">ABDIAZIZ</h1>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="loader-status">INITIALIZING SYSTEMS...</p>
+        </div>
+    </div>
+
+    <header class="cyber-header">
+        <div class="logo">
+            <span class="neon-text-cyan">DEVELOPER</span><span class="neon-text-purple">_ZIZO</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#hero" class="nav-link active">// Home</a>
+            <a href="#about" class="nav-link">// About</a>
+            <a href="#contact" class="nav-link">// Contact</a>
+        </nav>
+        <div class="system-status">
+            <span class="pulse-dot"></span> SECURE_NODE: ACTIVE
+        </div>
+    </header>
+
+    <div id="portfolio-capture">
+
+        <section id="hero" class="section-container">
+            <div class="hero-wrapper">
+                <div class="hero-info">
+                    <div class="cyber-tag">ZIZO_PORTFOLIO</div>
+                    <h1 class="hero-name">Abdiaziz Adan Sirat</h1>
+                    <div class="typing-container">
+                        <span id="typing-text"></span><span class="cursor-blink">|</span>
+                    </div>
+                    <p class="hero-bio">Multidisciplinary technology student building robust solutions across network domains, data layers, and interactive frontends.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#" id="download-btn" class="cyber-btn btn-primary">
+                            <span class="btn-glitch">DOWNLOAD CV</span>
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                        <a href="#contact" class="cyber-btn btn-secondary">
+                            <span class="btn-glitch">CONTACT ME</span>
+                            <i class="fa-solid fa-terminal"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-display">
+                    <div class="profile-glow-ring">
+                        <div class="profile-placeholder">
+                            <img src="azizo.jpeg" alt="Abdiaziz Adan Sirat" class="profile-img">
+                        </div>
+                    </div>
+                    
+                    <div class="floating-icon fi-html" data-speed="2"><i class="fa-brands fa-html5"></i></div>
+                    <div class="floating-icon fi-css" data-speed="-3"><i class="fa-brands fa-css3-alt"></i></div>
+                    <div class="floating-icon fi-js" data-speed="4"><i class="fa-brands fa-square-js"></i></div>
+                    <div class="floating-icon fi-mysql" data-speed="-2"><i class="fa-solid fa-database"></i></div>
+                    <div class="floating-icon fi-python" data-speed="3"><i class="fa-brands fa-python"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-container reveal">
+            <h2 class="section-title"><span class="neon-text-cyan">&lt;</span> ABOUT ME <span class="neon-text-purple">/&gt;</span></h2>
+            
+            <div class="about-grid">
+                <div class="cyber-card profile-card">
+                    <div class="card-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="card-title-text">GENERAL DESCRIPTION.</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="bio-text">
+                            I'm Abdiaziz, an Information Technology Bachelor passionate about cybersecurity, web development, databases, and automation. I enjoy building websites, learning new technologies, and solving real world problems through technology.
+                        </p>
+                        
+                        <div class="counters-wrapper">
+                            <div class="counter-box">
+                                <h3 class="counter-number" data-target="1">0</h3>
+                                <p class="counter-label">Years Learning Tech</p>
+                            </div>
+                            <div class="counter-box">
+                                <h3 class="counter-number" data-target="2">0</h3>
+                                <p class="counter-label">Projects Built</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-card skills-card">
+                    <div class="card-header">
+                        <span class="card-title-text">CORE_CAPABILITIES</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>HTML5</span>
+                                <span class="skill-val">85%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="--target-width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>CSS3 & Neon UI</span>
+                                <span class="skill-val">82%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="--target-width: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Vanilla JavaScript</span>
+                                <span class="skill-val">76%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="--target-width: 76%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>MySQL Database Admin</span>
+                                <span class="skill-val">55%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="--target-width: 55%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Microsoft Office Suite</span>
+                                <span class="skill-val">100%</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="--target-width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <section id="contact" class="section-container reveal">
+        <h2 class="section-title"><span class="neon-text-cyan">&lt;</span>CONTACT ZIZO.<span class="neon-text-purple">/&gt;</span></h2>
+        
+        <div class="contact-wrapper">
+            <div class="cyber-card contact-card">
+                <form id="cyber-form" action="https://formspree.io/f/mkoloepl" method="POST" autocomplete="on">
+                    <div class="form-group">
+                        <label for="form-name">NAME</label>
+                        <input type="text" id="form-name" name="name" required placeholder="Enter your name...">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-email">EMAIL</label>
+                        <input type="email" id="form-email" name="email" required placeholder="Enter email address...">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-message">Message</label>
+                        <textarea id="form-message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+                    </div>
+                    <button type="submit" id="form-submit-btn" class="cyber-btn btn-primary form-submit">
+                        <span class="btn-glitch" id="submit-btn-text">SEND MESSAGE</span>
+                        <i class="fa-solid fa-paper-plane" id="submit-btn-icon"></i>
+                    </button>
+                </form>
+                
+                <div id="form-status" style="margin-top: 20px; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; display: none;"></div>
+            </div>
+
+            <div class="social-channels">
+                <a href="https://github.com/abdiazizsirat581-cloud" class="social-icon-btn github" target="_blank" title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1BKzBhnWLa" class="social-icon-btn facebook" target="_blank" title="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/abdiazizadansirat" class="social-icon-btn instagram" target="_blank" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/+254759441312" class="social-icon-btn whatsapp" target="_blank" title="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="mailto:abdiazizsirat581@gmail.com" class="social-icon-btn email-link" title="Direct Email">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="cyber-footer">
+        <p>&copy; 2026 ABDIAZIZ ADAN SIRAT. ALL RIGHTS RESERVED. CODEBASE: VANILLA_CORE_V2.0</p>
+    </footer>
+
+    <button id="back-to-top" title="Return to Top Layer">
+        <i class="fa-solid fa-angles-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // 1. ASYNCHRONOUS HIGH-FIDELITY PDF GENERATOR
+            const downloadButton = document.getElementById('download-btn');
+            if (downloadButton) {
+                downloadButton.addEventListener('click', function (e) {
+                    e.preventDefault(); 
+                    
+                    const element = document.getElementById('portfolio-capture');
+                    const options = {
+                        margin:       0.2, 
+                        filename:     'Abdiaziz_Adan_Sirat_Portfolio.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { 
+                            scale: 2,           
+                            useCORS: true,      
+                            backgroundColor: '#03030c' 
+                        },
+                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+
+                    html2pdf().set(options).from(element).save();
+                });
+            }
+
+            // 2. BACKGROUND AJAX EMAIL TRANSMITTER
+            const contactForm = document.getElementById('cyber-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault(); // Stop standard browser page redirects
+                    
+                    const form = e.target;
+                    const buttonText = document.getElementById('submit-btn-text');
+                    const buttonIcon = document.getElementById('submit-btn-icon');
+                    const statusDiv = document.getElementById('form-status');
+                    
+                    // Fail gracefully if form endpoint token hasn't been set up yet
+                    if (form.action.includes('YOUR_FORM_ID_HERE')) {
+                        statusDiv.style.display = "block";
+                        statusDiv.style.color = "#ff00ff";
+                        statusDiv.innerHTML = `// SYSTEM_ERROR: INITIALIZATION FAILED. PROVIDE FORMSPREE TARGET KEY inside your HTML code line 144.`;
+                        return;
+                    }
+
+                    // UI Mutation State: Activating load indicators
+                    buttonText.textContent = "TRANSMITTING...";
+                    buttonIcon.className = "fa-solid fa-spinner fa-spin";
+                    
+                    const data = new FormData(form);
+                    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: data,
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        
+                        statusDiv.style.display = "block";
+                        
+                        if (response.ok) {
+                            statusDiv.style.color = "#00ffff"; // High-glow Cyber Cyan
+                            statusDiv.innerHTML = `// SYSTEM_SUCCESS: MESSAGE_DELIVERED_TO_ZIZO.`;
+                            form.reset(); // Wipe inputs instantly upon collection confirmation
+                        } else {
+                            throw new Error();
+                        }
+                    } catch (error) {
+                        statusDiv.style.display = "block";
+                        statusDiv.style.color = "#ff00ff"; // High-glow Cyber Magenta
+                        statusDiv.innerHTML = `// SYSTEM_ERROR: TRANSMISSION_FAILED. RE-CHECK SERVER LAYER.`;
+                    } finally {
+                        // Restore Button Visual State Engine
+                        buttonText.textContent = "SEND MESSAGE";
+                        buttonIcon.className = "fa-solid fa-paper-plane";
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
